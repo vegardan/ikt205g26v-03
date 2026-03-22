@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ikt205g26v_03/pages/edit_note.dart';
 import 'package:ikt205g26v_03/storage/note.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class DetailsPage extends StatefulWidget {
   final Note note;
@@ -32,7 +33,21 @@ class _DetailsPageState extends State<DetailsPage> {
         ],
       ),
       body: SingleChildScrollView(
-        child: Padding(padding: const EdgeInsets.all(16), child: Text(widget.note.text)),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(widget.note.text),
+              Image.network(
+                Supabase.instance.client.storage.from('note-images').getPublicUrl(widget.note.image),
+                errorBuilder: (context, error, stackTrace) {
+                  return const SizedBox();
+                },
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

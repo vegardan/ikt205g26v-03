@@ -15,10 +15,12 @@ class NoteService {
     return (data as List).map((json) => Note.fromJson(json)).toList();
   }
 
-  Future<void> createNote(String title, String text) async {
-    final user = supabase.auth.currentUser;
+  Future<Note> createNote(String title, String text) async {
+    final user = supabase.auth.currentUser!;
 
-    await supabase.from('notes').insert({'title': title, 'text': text, 'user_id': user!.id});
+    final response = await supabase.from('notes').insert({'title': title, 'text': text, 'user_id': user.id}).select().single();
+
+    return Note.fromJson(response);
   }
 
   Future<void> updateNote(int id, String title, String text) async {
