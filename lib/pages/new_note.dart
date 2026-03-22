@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:ikt205g26v_03/storage/note.dart';
 import 'package:ikt205g26v_03/storage/note_service.dart';
+import 'package:ikt205g26v_03/utils/notification_service.dart';
 import 'package:ikt205g26v_03/utils/snackbar_utils.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -162,6 +163,8 @@ class _NewNotePageState extends State<NewNotePage> {
                         Navigator.of(context).pop();
 
                         SnackBarUtils.infoSnackBar(context, 'Note created');
+
+                        await NotificationService.instance.showNoteCreatedNotification(note);
                       } catch (e) {
                         print(e);
                         SnackBarUtils.errorSnackBar(context, 'Failed to create note');

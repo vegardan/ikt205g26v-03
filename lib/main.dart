@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:ikt205g26v_03/pages/home.dart';
 import 'package:ikt205g26v_03/pages/signup.dart';
+import 'package:ikt205g26v_03/utils/notification_service.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await Supabase.initialize(url: 'https://ilhbnupaodivrudwwnue.supabase.co', anonKey: 'sb_publishable_z20yHRWTH76-PD2XX8sYsg_Gxld3WmA');
+
+  await NotificationService.instance.init();
 
   runApp(const App());
 }
